@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export PROMPT_COMMAND="printf '\e]0;'weather'\7'"
+curl wttr.in/saint-petersburg
+sleep 4

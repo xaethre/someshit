@@ -1,0 +1,53 @@
+#!/bin/bash
+
+CMD='amixer -q -c0 set'
+USAGE='Usage: sndm surround/center or mute.'
+BAR="$(pgrep py3status)"
+CURRENT='♪: 5.0'
+
+if [[ "$#" -lt 1 ]]; then
+	echo $CURRENT; exit
+fi
+
+case "$1" in
+	surround) echo -e "\033[0;33mSURROUND mode is on.\033[0;0m"
+		$CMD Master		100%
+		$CMD PCM		100%
+		$CMD Front		100%
+		$CMD Surround	100%
+		$CMD LFE		100%
+		$CMD Center		0%
+		sed -i "6s/=.*/='♪: 5.0'/" $0 && kill -USR1 $BAR 2> /dev/null
+		exit 0;;
+	center) echo -e "\033[0;35mCENTER mode is on.\033[0;0m"
+		$CMD Master		100%
+		$CMD PCM		100%
+		$CMD Front		0%
+		$CMD Surround	0%
+		$CMD LFE		0%
+		$CMD Center		100%
+		sed -i "6s/=.*/='♪: 0.1'/" $0 && kill -USR1 $BAR 2> /dev/null
+		exit 0;;
+	mute) echo -e "\033[0;36mMUTE mode is on.\033[0;0m"
+		$CMD Master		0%
+		$CMD PCM 		0%
+		$CMD Front		0%
+		$CMD Surround	0%
+		$CMD LFE		0%
+		$CMD Center		0%
+		sed -i "6s/=.*/='♪: OFF'/" $0 && kill -USR1 $BAR 2> /dev/null
+		exit 0;;
+	up) if [[ $(sndm) == '♪: 5.0' ]]; then
+			$CMD Master 1dB+
+            kill -USR1 $BAR; exit 0
+		else 
+			exit 1
+		fi;;
+	down) if [[ $(sndm) == '♪: 5.0' ]]; then
+			$CMD Master 1dB-
+            kill -USR1 $BAR; exit 0
+		else 
+			exit 1
+		fi;;
+esac
+

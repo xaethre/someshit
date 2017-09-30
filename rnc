@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PID=($(pgrep $1))
+
+if [[ ${#PID[@]} -gt 1 ]]; then
+    echo ERROR
+    exit 1
+fi
+
+sudo ionice -c 1 -n 0 -p $PID && echo The $1 is ioniced.
+sudo renice -20 -p $PID > /dev/null && echo The $1 is reniced.
+
