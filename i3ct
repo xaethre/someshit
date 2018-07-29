@@ -8,12 +8,17 @@
 #    if [[ $1 == ${PROCS[$i]} ]]; then
 
 TERMINAL=roxterm
+IMAGEVIEWER=nomacs
 
 case $1 in
     terminal) if [[ $(pgrep -i $TERMINAL) ]]; then
                   i3-msg "[class=(?i)$TERMINAL] focus"
               else
                   exec $TERMINAL; fi;;
+ imageviewer) if [[ $(pgrep -i $IMAGEVIEWER) ]]; then
+                  i3-msg "[class=(?i)$IMAGEVIEWER] focus"
+              else
+                  exec $IMAGEVIEWER; fi;;
 esac
 
 #case $1 in
