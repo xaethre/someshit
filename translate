@@ -1,0 +1,7 @@
+#!/bin/bash
+
+
+API_KEY="trnsl.1.1.20171007T202801Z.01c40cdbc7bcd1b8.88a7ed287e6522dd83f57b473cd760511f2ac702"
+TEXT="$(echo $(xsel -o) | sed "s/[\"\'<>]//g")"
+TRANSLATE="$(wget -qO - "https://translate.yandex.net/api/v1.5/tr.json/translate?key=$API_KEY&text=$TEXT&lang=ru")"
+notify-send "$TEXT" "$(echo $TRANSLATE | sed 's/.*\[\"\(.*\)\"\].*/\1/')"

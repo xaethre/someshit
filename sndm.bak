@@ -21,13 +21,12 @@ case "$1" in
         mute) for ((i=0; i<${#CHANNELS[@]}; ++i)); do
                   amixer -q -c0 set ${CHANNELS[$i]} ${MUTE[$i]}%
               done;;
-           *) exit 1;;
 esac
 
 sed -i "7s/=.*/=${1^^}/" $0
 printf '%s' "${1^^}"
-kill -USR1 $(pgrep py3status) 2> /dev/null
-#pkill -SIGUSR1 -f "python /home/rijndael/.config/i3/i3pystatus.conf"
+#kill -USR1 $(pgrep py3status) 2> /dev/null
+
 #channels() {
 #    for ((i=0; i<${#CHANNELS[@]}; ++i)); do
 #        amixer -q -c0 set ${CHANNELS[$i]} ${$1[$i]}% # eval??

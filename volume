@@ -1,0 +1,16 @@
+#!/bin/bash
+
+LOCKDIR="/tmp/volume.lock"
+
+if mkdir ${LOCKDIR}; then
+    if [[ $1 == 'down' ]]; then
+        amixer -q -c0 set Master 1dB-
+    else
+        amixer -q -c0 set Master 1dB+
+    fi
+    pkill -USR1 py3status
+else
+    exit 1
+fi
+
+rmdir ${LOCKDIR}

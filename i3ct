@@ -1,46 +1,65 @@
 #!/bin/bash
 
+#PROCS=(roxterm gpicview pinta qpdfview deadbeef smplayer firefox pcmanfm virtualbox \
+#wireshark transmission-gtk)
+
+
+#for((i=0; i<${#PROCS[@]}; ++i)); do
+#    if [[ $1 == ${PROCS[$i]} ]]; then
+
+TERMINAL=roxterm
 
 case $1 in
-          roxterm) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1^}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-         gpicview) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1^}] focus"
-                   else
-                     i3-msg "exec $1"; fi;;
-         qpdfview) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-         deadbeef) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1^}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-         smplayer) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-          firefox) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1^}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-        doublecmd) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1^}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-       virtualbox) if [[ $(pgrep -i $1) ]]; then
-                       PROCNAME=$(pgrep -li $1 | awk '{print $2}')
-                       i3-msg "[class=$PROCNAME] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
-        wireshark) if [[ $(pgrep -i $1) ]]; then
-                       i3-msg "[class=${1^}] focus"
-                   else
-                       i3-msg "exec $1"; fi;;
- transmission-gtk) if [[ $(pgrep -i $1) ]]; then
-                      i3-msg "[class=${1^}] focus"
-                   else
-                      i3-msg "exec $1"; fi;;
+    terminal) if [[ $(pgrep -i $TERMINAL) ]]; then
+                  i3-msg "[class=(?i)$TERMINAL] focus"
+              else
+                  exec $TERMINAL; fi;;
 esac
+
+#case $1 in
+#          roxterm) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1^}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#         nomacs) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1^}] focus"
+#                   else
+#                     i3-msg "exec $1"; fi;;
+#            pinta) if [[ $(pgrep -i mono) ]]; then
+#                       i3-msg "[class=Pinta] focus"
+#                   else
+#                     i3-msg "exec pinta"; fi;;
+#         qpdfview) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#         deadbeef) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1^}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#         smplayer) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#          firefox) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1^}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#          thunar) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1^}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#       virtualbox) if [[ $(pgrep -i $1) ]]; then
+#                       PROCNAME=$(pgrep -li $1 | awk '{print $2}')
+#                       i3-msg "[class=$PROCNAME] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+#        wireshark) if [[ $(pgrep -i $1) ]]; then
+#                       i3-msg "[class=${1^}] focus"
+#                   else
+#                       i3-msg "exec $1"; fi;;
+# qbittorrent) if [[ $(pgrep -i $1) ]]; then
+#                      i3-msg "[class=qBittorrent] focus"
+#                   else
+#                      i3-msg "exec $1"; fi;;
+#esac

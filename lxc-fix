@@ -1,0 +1,32 @@
+#!/bin/bash
+
+USER=rijndael
+
+#for DIR in /sys/fs/cgroup/*; do
+#    BASE=$(basename $DIR)
+#    if [ "$BASE" = "unified" ]; then
+#        continue
+#    elif [ "$BASE" = "cpuset" ]; then
+#        echo 1 >> $DIR/cgroup.clone_children;
+#    elif [ "$BASE" = "memory" ]; then
+#        echo 1 >> $DIR/memory.use_hierarchy;
+#    fi
+#    mkdir -p $DIR/$USER
+#    chown -R $USER $DIR/$USER
+#    echo $$ > $DIR/$USER/tasks
+#done
+
+for DIR in /sys/fs/cgroup/*; do
+    BASE=$(basename $DIR)
+    if [ "$BASE" = "unified" ]; then
+        continue
+    elif [ "$BASE" = "cpuset" ]; then
+        echo 1 | sudo tee -a $DIR/cgroup.clone_children > /dev/null
+    elif [ "$BASE" = "memory" ]; then
+        echo 1 | sudo tee -a $DIR/memory.use_hierarchy > /dev/null
+    fi
+    sudo mkdir -p $DIR/$USER
+    sudo chown -R $USER $DIR/$USER
+    echo $$ > $DIR/$USER/tasks
+done
+
